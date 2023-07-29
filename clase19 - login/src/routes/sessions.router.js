@@ -1,6 +1,6 @@
 import { Router } from "express";
 import userModel from "../models/Users.model.js";
-import { createHast } from "../utils.js";
+import { createHash, isValidPassword } from "../utils.js";
 
 const router=Router();
 
@@ -23,7 +23,7 @@ router.post('/register',async(req,res)=>{
         last_name,
         email,
         age,
-        password:createHast(password)
+        password:createHash(password)
     }
     let result = await userModel.create(user)
     res.send({status:"success",message:"User registered"})
@@ -66,7 +66,7 @@ router.post('/resetPassword',async(req,res)=>{
     if(!email||!password) return res.status(400).send({status:"error",error:"Incomplete Values"});
     const user = await userModel.findOne({email});
     if(!user) return res.status(404).send({status:"error",error:"Not user found"});
-    const newHashedPassword = createHast(password);
+    const newHashedPassword = createHash(password);
     await userModel.updateOne({_id:user._id},{$set:{password:newHashedPassword}});
 
     res.send({status:"success",message:"Contraseña restaurada"});
