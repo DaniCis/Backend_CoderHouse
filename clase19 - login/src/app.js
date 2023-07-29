@@ -6,6 +6,9 @@ import handlebars from "express-handlebars";
 import __dirname from "./utils.js";
 import viewRouter from "./routes/views.router.js";
 import sessionRouter from "./routes/sessions.router.js";
+import initializedPassport from './config/passport.config.js';
+import passport from 'passport';
+
 
 const app = express();
 
@@ -24,13 +27,16 @@ app.use(express.static(__dirname+'/public'))
 app.use(session({
   store: MongoStore.create({
     mongoUrl:"mongodb+srv://CoderUser:A123456*@pruebacoder.rpvqwdz.mongodb.net/?retryWrites=true&w=majority",
-    mongoOptions:{ useNewUrlParser:true, useUnifiedTopology:true},
     ttl:3600
   }),
   secret:"12345abcd",
   resave:false,
   saveUninitialized:false
 }))
+
+initializedPassport();
+app.use(passport.initialize());
+app.use(passport.session())
 
 app.engine('handlebars',handlebars.engine())
 app.set('views',__dirname+'/views')
