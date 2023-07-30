@@ -29,7 +29,6 @@ router.post('/register',async(req,res)=>{
     res.send({status:"success",message:"User registered"})
 })
 
-
 router.post('/login',async(req,res)=>{
     /*const {email,password}=req.body
     const user = await userModel.findOne({email,password});

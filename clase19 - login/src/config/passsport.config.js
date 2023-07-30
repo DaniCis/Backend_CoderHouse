@@ -1,8 +1,7 @@
 import passport from "passport";
 import local from "passport-local";
-
 import userModel from "../models/Users.model.js";
-import { createHast, isValidPassword } from "../utils.js";
+import { createHash} from "../utils.js";
 
 const LocalStrategy = local.Strategy;
 const initializedPassport = () => {
@@ -22,7 +21,7 @@ const initializedPassport = () => {
             last_name,
             email,
             age,
-            password: createHast(password),
+            password: createHash(password),
           };
           let result = await userModel.create(newUser);
           return done(null, result);
