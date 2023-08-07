@@ -16,29 +16,50 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 
+const users =[
+    {
+        email: 'andrea.lopez1904@gmail.com',
+        password: '1234'
+   }
+]
+
 app.get('/',(req,res)=>{
-    res.render('home')
+    res.render('home');
+})
+
+app.get('/register',(req,res)=>{
+    res.render('register');
 })
 
 app.get('/login',(req,res)=>{
     res.render('login')
 })
 
-const users =[]
-
-app.post('api/login',(req,res)=>{
-    const {email,password} = req.body
-    const user = users.find(user => user.email === email && user.password === password)
-    if(user)
-        return res.status(400).send({status:'error',error:'usuario no encontrado'})
-    /*const user={
-        name,email,password
+app.post('/api/register',(req,res)=>{
+    const {name,email,password} = req.body;
+    const exists = users.find(user=>user.email===email);
+    if(exists) return res.status(400).send({status:"error",error:"User already exists"});
+    const user = {
+        name,
+        email,
+        password
     }
-    users.push(user)*/
-    const acceso = generateToken(user)
-    res.send({status:"success",acceso})
+    users.push(user);
+    const access_token = generateToken(user);
+    res.send({status:"success",access_token});
+
 })
 
-app.get('/current',authToken,(req,res)=>{
-    res.send({status:'success',payload:req.user})
+app.post('/api/login',(req,res)=>{
+    const {email,password} = req.body;
+    //console.log(email+"  "+password)
+    const user = users.find(user=>user.email===email && user.password === password);
+    //console.log(user);
+    if(!user) return res.status(400).send({status:"error",error:"Invalid credentials"});
+    const access_token = generateToken(user);
+    res.send({status:"success",access_token});
+})
+
+app.get('/api/current',authToken,(req,res)=>{
+    res.send({status:"success",payload:req.user})
 })

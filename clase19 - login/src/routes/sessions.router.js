@@ -15,7 +15,6 @@ router.post('/register',async(req,res)=>{
         age,
         password
     }*/
-
     const { first_name, last_name, email, age, password} = req.body;
     if(!first_name || !last_name || !email || !age) return  res.status(400).send({status:"error",error:"Error User" });
     const user = {
@@ -32,9 +31,7 @@ router.post('/register',async(req,res)=>{
 router.post('/login',async(req,res)=>{
     /*const {email,password}=req.body
     const user = await userModel.findOne({email,password});
-
     if(!user) return res.status(400).send({status:"error",error:"Incorrect credentials"})
-
     req.session.user={
         name: `${user.first_name} ${user.last_name}`,
         email: user.email,
@@ -42,7 +39,6 @@ router.post('/login',async(req,res)=>{
     }
     res.send({status:"success",payload:req.session.user, message:"Nuestro primer logueo"})
 */
-
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).send({ status: "error", error: "Error User" });
