@@ -17,7 +17,7 @@ router.post('/',async(req,res)=>{
     teacher: "Sin Asignar",
     students:[]
  }
- const result=await courseManager.saveCourses(newCourse)
+ const result=await courseManager.saveCourse(newCourse)
  res.send({status:"success",payload:result});
 })
 

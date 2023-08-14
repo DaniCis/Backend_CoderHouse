@@ -19,7 +19,7 @@ const coursesSchema= new mongoose.Schema({
         type:[
             {
                 type:mongoose.SchemaTypes.ObjectId,
-                ref:'students'
+                ref:'users'
             }
         ],
         default:[]

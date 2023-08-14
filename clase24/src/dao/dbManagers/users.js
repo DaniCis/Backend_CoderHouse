@@ -6,7 +6,7 @@ export default class Users {
     }
 
     getAll = async () => {
-        let users = await usersModel.find().populate("Courses");
+        let users = await usersModel.find().populate("courses");
         return users.map((user) => user.toObject());
     };
 
@@ -16,7 +16,7 @@ export default class Users {
     };
 
     getById = async (params) => {
-        let result = await usersModel.findOne(params).populate("Courses").lean();
+        let result = await usersModel.findOne(params).populate("courses").lean();
         return result;
     };
 

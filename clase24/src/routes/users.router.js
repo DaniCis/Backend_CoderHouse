@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import Courses from '../dao/dbManagers/courses.js';
-import passport from "passport";
 import Users from "../dao/dbManagers/users.js";
-import jwt from "jsonwebtoken";
 
 const router = Router();
 const coursesManager = new Courses();
@@ -10,16 +8,12 @@ const usersManager = new Users()
 
 router.get("/", async (req, res) => {
     let users = await usersManager.getAll();
-    if (!users)
-      return res
-        .status(500)
-        .send({ status: "error", error: "No pude traer informacion" });
-  
+    if (!users) return res.status(500).send({ status: "error", error: "No pude traer informacion" });
     res.send({ status: "success", payload: users });
   });
   
   router.post("/", async (req, res) => {
-    const { first_name, last_name, email, dni, birthDate, gender } = req.body;
+    const { first_name, last_name, email, dni, birthDate, gender, password} = req.body;
     if(!first_name || !last_name || !email || !dni || !birthDate || !gender) 
         return res.status(400).send({status:'error',error:'incomplete data'})
     let result = await usersManager.saveUser({
@@ -29,6 +23,7 @@ router.get("/", async (req, res) => {
       dni,
       birthDate,
       gender,
+      password
     });
     if(!result) return res.status(500).send({status:'success',payload:result})
     res.send({ status: "success", payload: result });
