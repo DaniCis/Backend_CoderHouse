@@ -4,7 +4,6 @@ const operacionCompleja = () => {
       result+=i;
     }
     return result;
-    //process.send(result)
   };
   
   
