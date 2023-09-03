@@ -1,7 +1,8 @@
 import {Router}from "express"
 import toyController from '../controllers/toy.controller.js'
-const router = Router()
+
 /*
+const router = Router()
 router.get("/",toyController.getToy)
 router.post("/",toyController.createToy)
 router.get("/:referencia")

@@ -1,7 +1,7 @@
 import toyModel from '../model/toy.model.js'
 
 class ToyService{
-      async getToy(){
+    async getToy(){
         try{
             const response= await toyModel.find()
             console.log(response)
@@ -9,7 +9,7 @@ class ToyService{
         }catch(error){
             throw new Error(error.message)
         }
-        }
+    }
 
 }
 export default new ToyService();
