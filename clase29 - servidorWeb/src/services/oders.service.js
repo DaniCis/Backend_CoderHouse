@@ -76,6 +76,15 @@ export class OrdersService {
             total_price: 0,
         };
 
+        /*const newOrderPayload = {
+            order_number,
+            business,
+            user,
+            status: 'pending',
+            products: productsPayload,
+            total_price: totalPrice,
+        };*/
+
         const newOrder = await ordersDao.createOrder(newOrderPayload);
         return newOrder;
     }
