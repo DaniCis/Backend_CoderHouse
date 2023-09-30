@@ -1,0 +1,94 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtiene los usuarios que hacen adopciones
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Los usuarios fueron consultados correctamente
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#components/schemas/User'
+        "500":
+          description: No pudo entregar la informacion
+    post:
+      summary: insertar usuarios que hacen adopciones
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Los usuarios fueron agregados correctamente
+        "500":
+          description: No pudo agregar la informacion
+  /api/users/{UserId}:
+    get:
+      summary: Obtiene un usuario en particular que hace adopciones
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: id del usuario que esta consultando
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Los usuarios fueron consultados correctamente
+        "404":
+          description: No pudo entregar la informacion por ese UserId
+        "500":
+          description: No pudo entregar la informacion
+    put:
+      summary: Actualizar un usuario en particular que hace adopciones
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Se realizo la actualizacion del usuario
+        "400":
+          description: Nos envio informacion errada
+        "404":
+          description: No encontro el Id del user para actualizar 
+        "500":
+          description: No pudo entregar la informacion 
+    delete:
+      summary: Eliminar un usuario en particular que hace adopciones
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Se realizo la eliminacion del usuario
+        "400":
+          description: Nos envio informacion errada
+        "404":
+          description: No encontro el Id del user para eliminar 
+        "500":
+          description: No pudo entregar la informacion  
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        first_name:
+          type: String
+          description: El nombre del usuario
+        last_name:
+          type: String
+          description: El apellido del usuario
+        email:
+          type: String
+          description: El correo del usuario
+      example:
+        _id: ObjectId('1234456ABCD')
+        first_name: Andrea
+        last_name: Lopez
+        email: correo@correo.com

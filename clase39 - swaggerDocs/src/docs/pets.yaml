@@ -1,0 +1,20 @@
+paths:
+  /api/pets:
+    get:
+      summary: Obtiene las mascotas para adopciones
+      tags:
+        - Pets
+      responses:
+        "200":
+          description: Los mascotas fueron consultados correctamente
+        "500":
+          description: No pudo entregar la informacion
+    post:
+      summary: insertar mascostas para adopciones
+      tags:
+        - Pets
+      responses:
+        "200":
+          description: Las mascotas fueron agregadas correctamente
+        "500":
+          description: No pudo agregar la informacion
